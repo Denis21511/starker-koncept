@@ -66,14 +66,14 @@ body::after{content:"";position:fixed;inset:-100px;z-index:90;pointer-events:non
 .top.solid .nav{height:68px}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
 .logo-mark{width:40px;height:40px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(185,138,85,.6);display:grid;place-items:center;font:700 16px/1 var(--display);color:var(--bronze-hi);letter-spacing:.04em}
-.logo-name{font:800 22px/1 var(--display);text-transform:uppercase;letter-spacing:.06em}
+.logo-name{white-space:nowrap;font:800 22px/1 var(--display);text-transform:uppercase;letter-spacing:.06em}
 .menu{display:flex;gap:30px;font-size:15px}
-.menu a{position:relative;text-decoration:none;color:var(--bone-2);padding:6px 0;transition:color .3s}
+.menu a{position:relative;white-space:nowrap;text-decoration:none;color:var(--bone-2);padding:6px 0;transition:color .3s}
 .menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--bronze);transform:scaleX(0);transform-origin:right;transition:transform .6s var(--ease)}
 .menu a:hover{color:var(--bone)}
 .menu a:hover::after{transform:scaleX(1);transform-origin:left}
 .nav-r{margin-left:auto;display:flex;align-items:center;gap:26px}
-.nav-phone{text-decoration:none;font-size:15px;color:var(--bone-2);transition:color .3s}
+.nav-phone{white-space:nowrap;text-decoration:none;font-size:15px;color:var(--bone-2);transition:color .3s}
 .nav-phone:hover{color:var(--bone)}
 .nav .btn{min-height:46px;padding:0 24px;font-size:15px}
 .burger{display:none;width:48px;height:48px;border:0;background:none;color:var(--bone);cursor:pointer;position:relative}
@@ -81,7 +81,7 @@ body::after{content:"";position:fixed;inset:-100px;z-index:90;pointer-events:non
 .burger span:nth-child(1){top:19px}.burger span:nth-child(2){top:28px}
 .menu-open .burger span:nth-child(1){top:23.5px;transform:rotate(45deg)}
 .menu-open .burger span:nth-child(2){top:23.5px;transform:rotate(-45deg)}
-@media (max-width:1080px){.menu{display:none}.burger{display:block}}
+@media (max-width:1240px){.menu{display:none}.burger{display:block}}
 @media (max-width:680px){.nav-phone,.nav .btn{display:none}.nav{height:68px}.logo-name{font-size:19px}.nav-r{gap:0}}
 
 .drawer{position:fixed;inset:0;z-index:65;background:var(--black);display:flex;flex-direction:column;justify-content:flex-end;padding:110px clamp(16px,4vw,48px) 40px;clip-path:inset(0 0 100% 0);transition:clip-path .9s var(--ease-io);visibility:hidden}
