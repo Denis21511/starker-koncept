@@ -24,8 +24,9 @@
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html{background:var(--black);scroll-behavior:smooth}
-body{margin:0;background:var(--black);color:var(--bone);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html{background:var(--black);scroll-behavior:smooth;overflow-x:clip}
+section[id]{scroll-margin-top:96px}
+body{margin:0;background:var(--black);color:var(--bone);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
 img{display:block;max-width:100%}
 a{color:inherit}
 p{margin:0}
@@ -38,10 +39,10 @@ h3{font-size:clamp(28px,2.6vw,38px);line-height:1}
 ::selection{background:var(--bronze);color:var(--black)}
 
 /* grain */
-body::after{content:"";position:fixed;inset:-100px;z-index:90;pointer-events:none;opacity:.075;
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.075;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:grain 1.2s steps(5) infinite}
-@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-40px,22px)}40%{transform:translate(28px,-36px)}60%{transform:translate(-18px,-12px)}80%{transform:translate(34px,30px)}100%{transform:translate(0,0)}}
+@keyframes grain{0%{background-position:0 0}20%{background-position:-40px 22px}40%{background-position:28px -36px}60%{background-position:-18px -12px}80%{background-position:34px 30px}100%{background-position:0 0}}
 
 /* buttons */
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:58px;padding:0 34px;font:500 16px var(--sans);letter-spacing:.01em;text-decoration:none;border:0;cursor:pointer;overflow:hidden;isolation:isolate;white-space:nowrap;transition:color .5s var(--ease)}
@@ -55,14 +56,16 @@ body::after{content:"";position:fixed;inset:-100px;z-index:90;pointer-events:non
 .btn svg{width:18px;height:18px;flex:none;transition:transform .6s var(--ease)}
 .btn:hover svg{transform:translateX(4px)}
 
-.ribbon{position:relative;z-index:60;background:#000;color:var(--metal);font-size:12.5px;text-align:center;padding:6px 16px;border-bottom:1px solid var(--line)}
+.ribbon{background:#000;color:var(--metal);font-size:12.5px;line-height:18px;text-align:center;padding:6px 16px;border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rb-short{display:none}
+@media (max-width:680px){.rb-long{display:none}.rb-short{display:inline}}
 .ribbon b{color:var(--bone);font-weight:500}
 
 /* ---------- header ---------- */
-.top{position:fixed;left:0;right:0;top:31px;z-index:70;border-bottom:1px solid transparent;transition:top .5s var(--ease),background .5s,border-color .5s,transform .6s var(--ease)}
-.top.solid{top:0;background:rgba(8,7,6,.78);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border-color:var(--line)}
-.nav{display:flex;align-items:center;gap:40px;height:84px;transition:height .5s var(--ease)}
-.top.solid .nav{height:68px}
+.top{position:fixed;left:0;right:0;top:0;z-index:70;transform:translateZ(0);-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.top .nav-bar{border-bottom:1px solid transparent;transition:background .5s,border-color .5s}
+.top.solid .nav-bar{background:rgba(8,7,6,.78);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border-color:var(--line)}
+.nav{display:flex;align-items:center;gap:40px;height:76px}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
 .logo-mark{width:40px;height:40px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(185,138,85,.6);display:grid;place-items:center;font:700 16px/1 var(--display);color:var(--bronze-hi);letter-spacing:.04em}
 .logo-name{white-space:nowrap;font:800 22px/1 var(--display);text-transform:uppercase;letter-spacing:.06em}
@@ -81,7 +84,7 @@ body::after{content:"";position:fixed;inset:-100px;z-index:90;pointer-events:non
 .menu-open .burger span:nth-child(1){top:23.5px;transform:rotate(45deg)}
 .menu-open .burger span:nth-child(2){top:23.5px;transform:rotate(-45deg)}
 @media (max-width:1240px){.menu{display:none}.burger{display:block}}
-@media (max-width:680px){.nav-phone,.nav .btn{display:none}.nav{height:68px}.logo-name{font-size:19px}.nav-r{gap:0}}
+@media (max-width:680px){.nav-phone,.nav .btn{display:none}.nav{height:64px}.logo-name{font-size:19px}.nav-r{gap:0}}
 
 .drawer{position:fixed;inset:0;z-index:65;background:var(--black);display:flex;flex-direction:column;justify-content:flex-end;padding:110px clamp(16px,4vw,48px) 40px;clip-path:inset(0 0 100% 0);transition:clip-path .9s var(--ease-io);visibility:hidden}
 .menu-open .drawer{clip-path:inset(0 0 0 0);visibility:visible}
@@ -130,7 +133,7 @@ body::after{content:"";position:fixed;inset:-100px;z-index:90;pointer-events:non
 .loaded .fade{opacity:1;transform:none}
 .loaded .fade.d1{transition-delay:.7s}.loaded .fade.d2{transition-delay:.85s}.loaded .fade.d3{transition-delay:1s}
 .top{opacity:0}
-.loaded .top{opacity:1;transition:top .5s var(--ease),background .5s,border-color .5s,transform .6s var(--ease),opacity 1.2s var(--ease) .5s}
+.loaded .top{opacity:1;transition:opacity 1.2s var(--ease) .5s}
 .scroll-cue{position:absolute;left:50%;bottom:0;z-index:3;width:1px;height:64px;background:linear-gradient(var(--line),var(--line));overflow:hidden}
 .scroll-cue::after{content:"";position:absolute;left:0;width:1px;height:26px;background:var(--bronze-hi);animation:cue 2.4s var(--ease-io) infinite}
 @keyframes cue{0%{top:-26px}100%{top:64px}}
@@ -330,10 +333,9 @@ footer.site{padding:0 0 calc(40px + env(safe-area-inset-bottom))}
 </head>
 <body>
 
-<div class="ribbon">Концепт сайта для мужской парикмахерской «Старкер Манн», <b>не официальный сайт</b></div>
-
 <header class="top" id="top">
-  <div class="wrap nav">
+  <div class="ribbon"><span class="rb-long">Концепт сайта для мужской парикмахерской «Старкер Манн», </span><span class="rb-short">Концепт сайта «Старкер Манн», </span><b>не официальный сайт</b></div>
+  <div class="nav-bar"><div class="wrap nav">
     <a class="logo" href="#" aria-label="Starker Mann, наверх">
       <span class="logo-mark" aria-hidden="true">SM</span>
       <span class="logo-name">Starker Mann</span>
@@ -350,7 +352,7 @@ footer.site{padding:0 0 calc(40px + env(safe-area-inset-bottom))}
       <a class="btn btn-main" href="https://dikidi.app/485741" target="_blank" rel="noopener">Записаться</a>
       <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
     </div>
-  </div>
+  </div></div>
 </header>
 
 <div class="drawer" id="drawer" aria-hidden="true">
