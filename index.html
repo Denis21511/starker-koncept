@@ -61,7 +61,6 @@ body::after{content:"";position:fixed;inset:-100px;z-index:90;pointer-events:non
 /* ---------- header ---------- */
 .top{position:fixed;left:0;right:0;top:31px;z-index:70;border-bottom:1px solid transparent;transition:top .5s var(--ease),background .5s,border-color .5s,transform .6s var(--ease)}
 .top.solid{top:0;background:rgba(8,7,6,.78);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border-color:var(--line)}
-.top.away{transform:translateY(-100%)}
 .nav{display:flex;align-items:center;gap:40px;height:84px;transition:height .5s var(--ease)}
 .top.solid .nav{height:68px}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
@@ -708,14 +707,11 @@ footer.site{padding:0 0 calc(40px + env(safe-area-inset-bottom))}
   const top = $('#top'), pole = $('#pole'), poleBar = $('#pole i'), poleShade = $('#pole-shade'), mBook = $('#m-book');
   const heroImg = $('#hero-img'), hero = $('#hero');
   const par = $$('[data-speed]');
-  let lastY = scrollY, ticking = false;
+  let ticking = false;
   function frame() {
     ticking = false;
     const y = scrollY, vh = innerHeight, max = document.documentElement.scrollHeight - vh;
     top.classList.toggle('solid', y > 40);
-    top.classList.toggle('away', y > vh && y > lastY + 2 && !document.body.classList.contains('menu-open'));
-    if (y < lastY - 2 || y < vh) top.classList.remove('away');
-    lastY = y;
 
     const p = max > 0 ? y / max : 0;
     pole.classList.toggle('on', y > vh * .5);
